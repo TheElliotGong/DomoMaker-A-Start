@@ -5,13 +5,13 @@ const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
-const helmt = require('helmet');
+const helmet = require('helmet');
 
 const router = require('./router.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1/DomoMaker';
-mongoose.connect(dbURL, (err) => {
+mongoose.connect(dbURL).catch( (err) => {
     if (err) {
         console.log('Could not connect to database');
         throw err;
@@ -25,7 +25,7 @@ app.use(favicon(`${__dirname}/../hosted/img/favicon.png`));
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.engine('handlebars', expressHandlebars({ defaultLayout: '' }));
+app.engine('handlebars', expressHandlebars.engine({ defaultLayout: '' }));
 app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
 
