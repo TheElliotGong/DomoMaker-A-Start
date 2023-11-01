@@ -29,7 +29,7 @@ app.use(favicon(`${__dirname}/../hosted/img/favicon.png`));
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+// Create a session tracking feature to log users and accounts that access the server/database.
 app.use(session({
   key: 'sessionid',
   secret: 'Domo Arigato',

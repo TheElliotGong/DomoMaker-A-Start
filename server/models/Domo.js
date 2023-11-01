@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const _ = require('underscore');
 
 const setName = (name) => _.escape(name).trim();
-
+// Set up Domo model.
 const DomoSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -25,7 +25,7 @@ const DomoSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
+// Converts a doc to something we can store in redis later on.
 DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
