@@ -1,7 +1,7 @@
 const controllers = require('./controllers');
 
 const router = (app) => {
-  //Connect functions to url pathnames
+  // Connect functions to url pathnames
   app.get('/login', controllers.Account.loginPage);
   app.post('/login', controllers.Account.login);
 
@@ -12,7 +12,6 @@ const router = (app) => {
   app.get('/maker', controllers.Domo.makerPage);
   app.post('/maker', controllers.Domo.makeDomo);
   app.get('/', controllers.Account.loginPage);
-  
 };
 
 module.exports = router;
