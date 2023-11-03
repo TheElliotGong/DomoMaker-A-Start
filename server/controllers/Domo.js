@@ -9,11 +9,12 @@ const { Domo } = models;
  */
 const makerPage = async (req, res) => {
   try {
-    //Load up domos from the user's account.
+    //Load up domos from the user's account onto the page.
     const query = { owner: req.session.account._id };
     const docs = await Domo.find(query).select('name age').lean().exec();
     return res.render('app', { domos: docs });
   } catch (err) {
+    //Catch and throw errors
     console.log(err);
     return res.status(500).json({ error: 'An error occured when retrieving the domos!' });
   }
@@ -25,6 +26,7 @@ const makerPage = async (req, res) => {
  * @returns 
  */
 const makeDomo = async (req, res) => {
+  //Check if parameters exist.
   if (!req.body.name || !req.body.age) {
     return res.status(400).json({ error: 'RAWR! Both name and age are required' });
   }
