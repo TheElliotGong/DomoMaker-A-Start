@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const _ = require('underscore');
 
 const setName = (name) => _.escape(name).trim();
-// Set up Domo model.
+// Set up Domo model and appropriate parameters.
 const DomoSchema = new mongoose.Schema({
   name: {
     type: String,
