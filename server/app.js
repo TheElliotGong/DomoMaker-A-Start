@@ -16,9 +16,6 @@ const router = require('./router.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1/DomoMaker';
 
-
-//  apply to all requests
-
 // Set up app.
 mongoose.connect(dbURL).catch((err) => {
   if (err) {
@@ -26,7 +23,7 @@ mongoose.connect(dbURL).catch((err) => {
     throw err;
   }
 });
-
+//Include redis content and connection details.
 const redisClient = redis.createClient({
   url: process.env.REDISCLOUD_URL,
 });
@@ -42,6 +39,7 @@ redisClient.connect().then(() => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   // Create a session tracking feature to log users and accounts that access the server/database.
+  //These session keys will be stored in redis.
   app.use(session({
     key: 'sessionid',
     store: new RedisStore({
