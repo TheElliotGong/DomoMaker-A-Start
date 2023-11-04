@@ -1,5 +1,6 @@
 const controllers = require('./controllers');
 const mid = require('./middleware');
+
 const router = (app) => {
   // Connect functions to url pathnames.
   app.get('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
