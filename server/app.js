@@ -29,7 +29,7 @@ const redisClient = redis.createClient({
 });
 
 redisClient.on('error', (err) => console.log(`Redis error: ${err}`));
-
+//Have the server connect to redis before opening.
 redisClient.connect().then(() => {
   const app = express();
   app.use(helmet());
@@ -49,11 +49,11 @@ redisClient.connect().then(() => {
     resave: false,
     saveUninitialized: false,
   }));
-
+  //enable app to use handlebars.
   app.engine('handlebars', expressHandlebars.engine({ defaultLayout: '' }));
   app.set('view engine', 'handlebars');
   app.set('views', `${__dirname}/../views`);
-
+  //Create and open the server.
   router(app);
   app.listen(port, (err) => {
     if (err) {

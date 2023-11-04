@@ -51,7 +51,7 @@ const requiresSecure = (req, res, next) => {
 const bypassSecure = (req, res, next) => {
   next();
 };
-
+//Export functions.
 module.exports.requiresLogin = requiresLogin;
 module.exports.requiresLogout = requiresLogout;
 //bypass https checks for debug mode.
