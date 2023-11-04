@@ -9,10 +9,10 @@ const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const helmet = require('helmet');
 const session = require('express-session');
-const redisStore = require('connect-redis').default;
+const RedisStore = require('connect-redis').default;
 const redis = require('redis');
 const router = require('./router.js');
-const { default: RedisStore } = require('connect-redis');
+
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1/DomoMaker';
@@ -26,18 +26,12 @@ mongoose.connect(dbURL).catch((err) => {
 });
 
 const redisClient = redis.createClient({
-  url: process.env.REDIS_URL,
+  url: process.env.REDISCLOUD_URL,
 });
 
 redisClient.on('error', (err) => console.log(`Redis error: ${err}`));
 
 redisClient.connect().then(() => {
-  const app = express();
-
-  app.use(helmet());
-  app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
-});
-
 const app = express();
 app.use(helmet());
 app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
@@ -67,3 +61,6 @@ app.listen(port, (err) => {
   }
   console.log(`Listening on port ${port}`);
 });
+
+});
+
